@@ -29,7 +29,7 @@ for el in target_block :
     if ((target_block.index(el)+1)%2) == 1 : ## for even indexes starting with zero representing h3 elements
         df.loc[len(df)] = el.get_text()
 
-    else :                                    ## for odd indexes starting with zero representing table elements
+    else :                                    ## for odd indexes starting with 1 representing table elements
         trows = el.find_all("tr") 
         for row in trows :  ## trow = ['Release date\n', '\n' , 'Title\n', '\n' , 'Notes\n']
             row = list(filter((lambda x : x!= '\n'),[(td.get_text())for td in row]))  ### after filter method , still some rows have empty texts
@@ -42,4 +42,5 @@ for el in target_block :
             df.loc[len(df)] = [rel_date,title,note]
 
 print(df)
+
 df.to_csv('disney_movies.csv',index=False)
